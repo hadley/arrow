@@ -25,6 +25,9 @@
   chosen based on the number of rows and columns. The
   `arrow.parquet_cells_per_group` and `arrow.parquet_max_chunks` options are no
   longer used.
+- The default `max_rows_per_group` in `write_dataset()` (and
+  `write_csv_dataset()` / `write_tsv_dataset()`) is now `120 * 1024` instead of
+  `1024 * 1024`, matching the new default row group size.
 
 # arrow 24.0.0
 

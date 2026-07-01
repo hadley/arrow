@@ -66,7 +66,7 @@
 #' @param max_rows_per_group maximum rows allowed in a single
 #' group and when this number of rows is exceeded, it is split and the next set
 #' of rows is written to the next group. This value must be set such that it is
-#' greater than `min_rows_per_group`. Default is 1024 * 1024.
+#' greater than `min_rows_per_group`. Default is 120 * 1024.
 #' @param create_directory whether to create the directories written into.
 #' Requires appropriate permissions on the storage backend. If set to FALSE,
 #' directories are assumed to be already present if writing on a classic
@@ -137,7 +137,7 @@ write_dataset <- function(
   max_open_files = 900L,
   max_rows_per_file = 0L,
   min_rows_per_group = 0L,
-  max_rows_per_group = bitwShiftL(1, 20),
+  max_rows_per_group = 120L * 1024L,
   create_directory = TRUE,
   preserve_order = FALSE,
   ...
@@ -286,7 +286,7 @@ write_delim_dataset <- function(
   max_open_files = 900L,
   max_rows_per_file = 0L,
   min_rows_per_group = 0L,
-  max_rows_per_group = bitwShiftL(1, 20),
+  max_rows_per_group = 120L * 1024L,
   col_names = TRUE,
   batch_size = 1024L,
   delim = ",",
@@ -344,7 +344,7 @@ write_csv_dataset <- function(
   max_open_files = 900L,
   max_rows_per_file = 0L,
   min_rows_per_group = 0L,
-  max_rows_per_group = bitwShiftL(1, 20),
+  max_rows_per_group = 120L * 1024L,
   col_names = TRUE,
   batch_size = 1024L,
   delim = ",",
@@ -402,7 +402,7 @@ write_tsv_dataset <- function(
   max_open_files = 900L,
   max_rows_per_file = 0L,
   min_rows_per_group = 0L,
-  max_rows_per_group = bitwShiftL(1, 20),
+  max_rows_per_group = 120L * 1024L,
   col_names = TRUE,
   batch_size = 1024L,
   na = "",
