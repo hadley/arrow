@@ -1163,7 +1163,7 @@ Examples
         row_group_size : int, default None
             Maximum number of rows in each written row group. If None, the row
             group size will be the minimum of the number of rows in the
-            Table/RecordBatch and 1024 * 1024.
+            Table/RecordBatch and 120 * 1024.
         """
         if isinstance(table_or_batch, pa.RecordBatch):
             self.write_batch(table_or_batch, row_group_size)
@@ -1182,7 +1182,7 @@ Examples
         row_group_size : int, default None
             Maximum number of rows in written row group. If None, the
             row group size will be the minimum of the RecordBatch
-            size (in rows) and 1024 * 1024. If set larger than 64 * 1024 * 1024
+            size (in rows) and 120 * 1024. If set larger than 64 * 1024 * 1024
             then 64 * 1024 * 1024 will be used instead.
         """
         table = pa.Table.from_batches([batch], batch.schema)
@@ -1198,7 +1198,7 @@ Examples
         row_group_size : int, default None
             Maximum number of rows in each written row group. If None,
             the row group size will be the minimum of the Table size (in rows)
-            and 1024 * 1024. If set larger than 64 * 1024 * 1024 then
+            and 120 * 1024. If set larger than 64 * 1024 * 1024 then
             64 * 1024 * 1024 will be used instead.
 
         """
@@ -2106,7 +2106,7 @@ where : string or pyarrow.NativeFile
 row_group_size : int, default None
     Maximum number of rows in each written row group. If None, the
     row group size will be the minimum of the Table size (in rows)
-    and 1024 * 1024. If set larger than 64 * 1024 * 1024 then
+    and 120 * 1024. If set larger than 64 * 1024 * 1024 then
     64 * 1024 * 1024 will be used instead.
 {_parquet_writer_arg_docs}
 **kwargs : optional

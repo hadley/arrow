@@ -42,7 +42,7 @@ module Parquet
     #   @param chunk_size [nil, Integer] (nil) The maximum number of
     #     rows to write per row group.
     #
-    #     If this is `nil`, the default value (`1024 * 1024`) is used.
+    #     If this is `nil`, the default value (`120 * 1024`) is used.
     #
     #   @example Write a record batch with the default chunk size
     #     table = Arrow::Table.new(enabled: [true, false])
@@ -89,7 +89,7 @@ module Parquet
         write_record_batch(target)
       when Arrow::Table
         # Same as parquet::DEFAULT_MAX_ROW_GROUP_LENGTH in C++
-        chunk_size ||= 1024 * 1024
+        chunk_size ||= 120 * 1024
         write_table(target, chunk_size)
       else
         record_batch = Arrow::RecordBatch.new(schema, target)

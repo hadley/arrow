@@ -27,10 +27,8 @@ system (\code{SubTreeFileSystem})}
 
 \item{chunk_size}{how many rows of data to write to disk at once. This
 directly corresponds to how many rows will be in each row group in
-parquet. If \code{NULL}, a best guess will be made for optimal size (based on
-the number of columns and number of rows), though if the data has fewer
-than 250 million cells (rows x cols), then the total number of rows is
-used.}
+parquet. If \code{NULL}, the row group size will be the minimum of the number
+of rows in the data and \code{120 * 1024}.}
 
 \item{version}{parquet version: "1.0", "2.4" (default), "2.6", or
 "latest" (currently equivalent to 2.6). Numeric values are

@@ -913,7 +913,7 @@ Table/RecordBatch, or iterable of RecordBatch
         Minimum number of rows per group. When the value is greater than 0,
         the dataset writer will batch incoming data and only write the row
         groups to the disk when sufficient rows have accumulated.
-    max_rows_per_group : int, default 1024 * 1024
+    max_rows_per_group : int, default 120 * 1024
         Maximum number of rows per group. If the value is greater than 0,
         then the dataset writer may split up large incoming batches into
         multiple row groups.  If this value is set, then min_rows_per_group
@@ -1005,7 +1005,7 @@ Table/RecordBatch, or iterable of RecordBatch
         max_rows_per_file = 0
 
     if max_rows_per_group is None:
-        max_rows_per_group = 1 << 20
+        max_rows_per_group = 120 * 1024
 
     if min_rows_per_group is None:
         min_rows_per_group = 0

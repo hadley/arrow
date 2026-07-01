@@ -205,7 +205,7 @@ def test_parquet_writer_write_wrappers(tempdir, filesystem):
 @pytest.mark.large_memory
 @pytest.mark.pandas
 def test_parquet_writer_chunk_size(tempdir):
-    default_chunk_size = 1024 * 1024
+    default_chunk_size = 120 * 1024
     abs_max_chunk_size = 64 * 1024 * 1024
 
     def check_chunk_size(data_size, chunk_size, expect_num_chunks):

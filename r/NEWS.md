@@ -19,6 +19,13 @@
 
 # arrow 24.0.0.9000
 
+- The default `chunk_size` in `write_parquet()` is now the minimum of the
+  number of rows and `120 * 1024`, matching the default row group size used by the
+  Arrow C++ library and pyarrow. Previously the chunk size was heuristically
+  chosen based on the number of rows and columns. The
+  `arrow.parquet_cells_per_group` and `arrow.parquet_max_chunks` options are no
+  longer used.
+
 # arrow 24.0.0
 
 # arrow 24.0.0
