@@ -48,7 +48,7 @@ from pyarrow.lib import (ArrowException, NativeFile, BufferOutputStream,
 
 cimport cpython as cp
 
-_DEFAULT_ROW_GROUP_SIZE = 1024*1024
+_DEFAULT_ROW_GROUP_SIZE = 120*1024
 _MAX_ROW_GROUP_SIZE = 64*1024*1024
 
 

@@ -16,7 +16,7 @@ write_dataset(
   max_open_files = 900L,
   max_rows_per_file = 0L,
   min_rows_per_group = 0L,
-  max_rows_per_group = bitwShiftL(1, 20),
+  max_rows_per_group = 120L * 1024L,
   create_directory = TRUE,
   preserve_order = FALSE,
   ...
@@ -81,7 +81,7 @@ rows have accumulated. Default is 0L.}
 \item{max_rows_per_group}{maximum rows allowed in a single
 group and when this number of rows is exceeded, it is split and the next set
 of rows is written to the next group. This value must be set such that it is
-greater than \code{min_rows_per_group}. Default is 1024 * 1024.}
+greater than \code{min_rows_per_group}. Default is 120 * 1024.}
 
 \item{create_directory}{whether to create the directories written into.
 Requires appropriate permissions on the storage backend. If set to FALSE,

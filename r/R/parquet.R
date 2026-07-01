@@ -96,10 +96,8 @@ read_parquet <- function(
 #' system (`SubTreeFileSystem`)
 #' @param chunk_size how many rows of data to write to disk at once. This
 #'    directly corresponds to how many rows will be in each row group in
-#'    parquet. If `NULL`, a best guess will be made for optimal size (based on
-#'    the number of columns and number of rows), though if the data has fewer
-#'    than 250 million cells (rows x cols), then the total number of rows is
-#'    used.
+#'    parquet. If `NULL`, the row group size will be the minimum of the number
+#'    of rows in the data and `120 * 1024`.
 #' @param version parquet version: "1.0", "2.4" (default), "2.6", or
 #'    "latest" (currently equivalent to 2.6). Numeric values are
 #'    coerced to character.
@@ -194,9 +192,9 @@ write_parquet <- function(
     )
   )
 
-  # determine an approximate chunk size
+  # Match the default row group size used by the C++ library and pyarrow
   if (is.null(chunk_size)) {
-    chunk_size <- calculate_chunk_size(x$num_rows, x$num_columns)
+    chunk_size <- min(x$num_rows, 120L * 1024L)
   }
 
   writer$WriteTable(x, chunk_size = chunk_size)
@@ -624,32 +622,6 @@ ParquetArrowReaderProperties <- R6Class(
 
 ParquetArrowReaderProperties$create <- function(use_threads = option_use_threads()) {
   parquet___arrow___ArrowReaderProperties__Make(isTRUE(use_threads))
-}
-
-calculate_chunk_size <- function(
-  rows,
-  columns,
-  target_cells_per_group = getOption("arrow.parquet_cells_per_group", 2.5e8),
-  max_chunks = getOption("arrow.parquet_max_chunks", 200)
-) {
-  # Ensure is a float to prevent integer overflow issues
-  num_cells <- as.numeric(rows) * as.numeric(columns)
-
-  if (num_cells < target_cells_per_group) {
-    # If the total number of cells is less than the default 250 million, we want one group
-    num_chunks <- 1
-  } else {
-    # no more than the default 250 million cells (rows * cols) per group
-    # and we use floor, then ceiling to ensure that these are whole numbers
-    num_chunks <- floor(num_cells / target_cells_per_group)
-  }
-
-  # but there are no more than 200 chunks
-  num_chunks <- min(num_chunks, max_chunks)
-
-  chunk_size <- ceiling(rows / num_chunks)
-
-  chunk_size
 }
 
 #' @title ParquetReaderProperties class
